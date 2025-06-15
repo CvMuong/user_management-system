@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const config = require('./config/env');
 const connectDB = require('./config/db');
@@ -12,6 +13,7 @@ if (config.node_env === 'development') {
 }
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api', userRoutes);
 
