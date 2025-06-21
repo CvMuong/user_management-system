@@ -4,8 +4,8 @@ const VerificationCode = require('../models/verification_codes.model');
 const { createError } = require('../utils/error');
 const jwt = require('jsonwebtoken');
 const config = require('../config/env');
-const sendEmail = require('../config/email');
 const generateToken = require('../utils/generateToken');
+const { sendVerificationEmail } = require('../services/email.service');
 
 const generateAccessToken = (user) => {
     return jwt.sign(
@@ -28,10 +28,10 @@ exports.register = async (req, res, next) => {
         const { name, email, password, role } = req.body;
         const existing = await User.findOne({ email });
         if (existing) return next(createError('Email already exists', 409));
-        const avatar = req.file?.path || undefined;
+        const avatar = req.file && req.file.path ? req.file.path : undefined;
         const user = await User.create({ name, email, password, role, avatar });
         const code = generateToken();
-        const verifyLink = `http://localhost:${config.port}/api/verify-email?email=${email}&token=${code}`;
+        const verifyLink = `http://localhost:${config.port}/api/auth/verify-email?email=${email}&token=${code}`;
         const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
         await VerificationCode.create({
             userId: user._id,
@@ -39,21 +39,12 @@ exports.register = async (req, res, next) => {
             purpose: 'email_verify',
             expiresAt,
         });
-        const html = `
-                <h2>Chào ${name}</h2>
-                <p>Nhấn vào link dưới đây để xác minh email:</p>
-                <a href="${verifyLink}">${verifyLink}</a>
-            `;
-        await sendEmail({
-            to: email,
-            subject: 'Verify your email',
-            html
-        });
-
-        return res.status(201).json({
+        res.status(201).json({
             success: true,
-            message: 'Registered successfully. Please check your email to verify account'
+            message: 'Registered successfully. Please check your email to verify account',
+            email
         });
+        setImmediate(() => sendVerificationEmail({ email, name, link: verifyLink }))
     } catch (error) {
         next(error);
     }

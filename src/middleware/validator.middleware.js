@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body, query } = require('express-validator');
 
 const validateLogin = [
     body('email')
@@ -31,8 +31,16 @@ const validateVerifyEmail = [
         .notEmpty().withMessage('Token is required')
 ];
 
+const validateUserQuery = [
+    query('limit').optional().isInt({ min: 1 }).toInt(),
+    query('page').optional().isInt({ min: 1 }).toInt(),
+    query('orderBy').optional().isIn(['asc', 'desc']),
+    query('sortBy').optional().isIn(['name', 'email', 'createdAt'])
+];
+
 module.exports = {
     validateRegister,
     validateLogin,
     validateVerifyEmail,
+    validateUserQuery
 };
