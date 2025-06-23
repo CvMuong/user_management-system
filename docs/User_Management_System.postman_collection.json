@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "a3637001-8298-4804-8b94-694864e3ac7f",
+		"name": "User_Management_System",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45408552"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"vmuongg203@gmail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDM4MzQ1OSwiZXhwIjoxNzUwMzg0MzU5fQ.3wEc0aT7_BxKZsMsRnekwltF-mNON47TLuYblZUvzyU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Lê Minh Khai",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "cvmuong-cntt16@tdu.edu.vn",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Access Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/auth/refresh-token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"refresh-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDY2NDA1NywiZXhwIjoxNzUwNjY0OTU3fQ.aMX8YuuO3-jmuM5B9kgLRjFgKpgc5h78VmE7f2bm-_s",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/users?page=1&limit=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserById",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDQ4OTkyMCwiZXhwIjoxNzUwNDkwODIwfQ.bNPJyUpa-TLV8Y7rVK8ZRXQpr4hjh_fy-zG0A9SkgHU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/users/6856592c617d189025cb87ab",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"6856592c617d189025cb87ab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMe",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDQ5NzE3OSwiZXhwIjoxNzUwNDk4MDc5fQ.eof4RJS5W8PwaGGeTByhlOLN0H8kMIacEz7x3RaU3rA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/me/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"me",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateMe",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDQ5NzE3OSwiZXhwIjoxNzUwNDk4MDc5fQ.eof4RJS5W8PwaGGeTByhlOLN0H8kMIacEz7x3RaU3rA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "avatar",
+							"type": "file",
+							"src": "/home/vmuong203/Pictures/gg photo/Untitled.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/me/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"me",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createUserByAdmin",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDY2NTE2MiwiZXhwIjoxNzUwNjY2MDYyfQ.QpqlKo7s1Bnpe9ioET1KidWIprLDVLXvPJTGZg8i_sI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Văn Đãm\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/6859057b99791da15ce5a57c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"6859057b99791da15ce5a57c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changeRole",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGQzNjQ0NzNhMDVkY2ZhMTgyYjY0MiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1MDY2OTM1NCwiZXhwIjoxNzUwNjcwMjU0fQ.cCQAsKJByyz1C675Csdfn9oi1INMJGho1Qm5v7rI2jg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"role\": \"user\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/6859057b99791da15ce5a57c/change-role",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"6859057b99791da15ce5a57c",
+						"change-role"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
