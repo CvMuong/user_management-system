@@ -63,7 +63,80 @@ exports.getUserById = async (req, res, next) => {
 
 exports.createUserByAdmin = async (req, res, next) => {
     try {
-        
+        const { name, email, password, role } = req.body;
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return next(createError('Email already exists', 400));
+        }
+        const ALLOWED_ROLES = ['admin', 'user'];
+        if (!ALLOWED_ROLES.includes(role)) {
+            return next(createError('Invalid role', 400));
+        }
+        const user = await User.create({ name, email, password, role, isVerified: true });
+        return res.status(201).json({
+            success: true,
+            message: 'User created successfully',
+            email
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.updateUserByAdmin = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const ALLOWED_UPDATE_FIELDS = ['name', 'email', 'avatar', 'isVerify'];
+        const updates = {};
+        for (let key of ALLOWED_UPDATE_FIELDS) {
+            if (req.body[key] !== undefined) {
+                updates[key] = req.body[key];
+            }
+        }
+        if (req.file && req.file.path) {
+            updates.avatar = req.file.path;
+        }
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            updates,
+            {
+                new: true,
+                runValidators: true
+            }
+        ).select('-password').lean();
+        if (!updatedUser) {
+            return next(createError('User not found', 404));
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'User updated successfully',
+            data: updatedUser
+        })
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.changeRoleUser = async (req, res, next) => {
+    try {
+        const userId = req.params.id;
+        const { role } = req.body;
+        const user = await User.findByIdAndUpdate(
+            userId,
+            { role },
+            {
+                new: true,
+                runValidators: true
+            }
+        ).select('-password');
+        if (!user) {
+            return next(createError('User not found', 404));
+        }
+        return res.status(200).json({
+            success: true,
+            message: 'Update user role successfully',
+            data: user
+        });
     } catch (error) {
         next(error);
     }

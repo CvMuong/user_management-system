@@ -38,9 +38,16 @@ const validateUserQuery = [
     query('sortBy').optional().isIn(['name', 'email', 'createdAt'])
 ];
 
+const validateChangeRole = [
+    body('role')
+        .notEmpty().withMessage('Role is required')
+        .optional().isIn(['user', 'admin'])
+];
+
 module.exports = {
     validateRegister,
     validateLogin,
     validateVerifyEmail,
-    validateUserQuery
+    validateUserQuery,
+    validateChangeRole
 };
