@@ -104,5 +104,12 @@ EMAIL_PASSWORD=...
 
 --- 
 
+## 🧪 Postman Collection
+
+Bạn có thể tải file Postman tại đây:  
+👉 [Tải xuống collection Postman](https://github.com/CvMuong/user_management-system/blob/master/docs/User_Management_System.postman_collection.json)
+
+
+
 
 
